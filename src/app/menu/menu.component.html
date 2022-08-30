@@ -1,0 +1,16 @@
+<button mat-raised-button color="primary" *ngIf="isRoot" [matMenuTriggerFor]="menu">
+  {{ title }}
+</button>
+<button *ngIf="!isRoot" mat-menu-item [matMenuTriggerFor]="menu">
+  {{ title }}
+</button>
+<mat-menu #menu="matMenu">
+  <ng-container *ngFor="let node of tree; let i = index">
+    <button mat-menu-item>
+      <app-menu *ngIf="node.children; else item" [title]="node.name" [tree]="node.children" [id]="node.id"></app-menu>
+    </button>
+    <ng-template #item>
+      <button mat-menu-item>{{ node.name }}</button>
+    </ng-template>
+  </ng-container>
+</mat-menu>
